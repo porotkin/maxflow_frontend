@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@yworks/optimizer": "^1.3.2",
+    "yfiles": "../yFiles-for-HTML-Complete-2.3.0.1-Evaluation/lib-dev/es-modules/yfiles-23.0.1-eval-dev.tgz",
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },

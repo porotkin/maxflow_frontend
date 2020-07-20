@@ -1,28 +1,56 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <UserPanelComponent />
+    <GraphComponent />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GraphComponent from './components/GraphComponent.vue'
+import UserPanelComponent from './components/UserPanelComponent'
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+const store = new Vuex.Store({
+  state: {
+    answer: "Calculate max flow"
+  },
+  mutations: {
+    getAnswer(state, newText) {
+      state.answer = newText
+    }
+  },
+  actions: {
+    getAnswer: function (context) {
+       fetch("http://localhost:8080/maxFlow/getmaxflow", {mode: "cors"})
+              .then(
+                      (response) => {
+                        response.text().then((text) => {
+                                  context.commit("getAnswer", text)
+                                }
+                        )
+                      })
+    }
+  }
+})
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    GraphComponent,
+    UserPanelComponent
+  },
+  store
 }
 </script>
 
 <style>
-#app {
+#app, html, body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 </style>
